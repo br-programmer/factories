@@ -9,17 +9,20 @@ class MyButton extends StatelessWidget {
     required this.textButton,
     this.onPressed,
     this.padding = const EdgeInsets.symmetric(vertical: 15),
-  }) : super(key: key);
+    this.opacity = .85,
+  })  : assert(opacity >= 0.0 && opacity <= 1.0),
+        super(key: key);
   final Color colorButton;
   final String textButton;
   final VoidCallback? onPressed;
   final EdgeInsetsGeometry padding;
+  final double opacity;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
       padding: EdgeInsets.zero,
-      pressedOpacity: .85,
+      pressedOpacity: opacity,
       child: Container(
         decoration: BoxDecoration(
           color: colorButton,

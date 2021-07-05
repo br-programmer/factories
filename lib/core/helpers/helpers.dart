@@ -18,6 +18,12 @@ class Helpers {
   static TextStyle get loginInputStyle =>
       TextStyle(fontSize: 60.sp, fontWeight: FontWeight.w700);
 
+  static TextStyle get searchStyle =>
+      TextStyle(fontWeight: FontWeight.w400, fontSize: 40.sp);
+
+  static TextStyle get homeStyle =>
+      TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w700);
+
   static bool userValid(String value) => value.length > 4;
 
   static bool isValidPassword(String value) =>

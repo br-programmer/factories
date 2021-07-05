@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
         ),
       );
     } else if (state.status == SplashStatus.login) {
-      Navigator.push(context, FadePageRoute(screen: HomeScreen()));
+      Navigator.push(context, FadePageRoute(screen: HomeScreen.init()));
     }
   }
 
