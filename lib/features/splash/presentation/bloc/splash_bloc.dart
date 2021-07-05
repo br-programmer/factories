@@ -1,9 +1,12 @@
+import 'package:factories/core/domain/usecase/usecase.dart';
+import 'package:factories/features/splash/domain/usecase/sesion_usecase.dart';
 import 'package:factories/features/splash/presentation/bloc/splash_event.dart';
 import 'package:factories/features/splash/presentation/bloc/splash_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashBLoC extends Bloc<SplashEvent, SplashState> {
-  SplashBLoC() : super(SplashState.initialState);
+  SplashBLoC(this._sesionUseCase) : super(SplashState.initialState);
+  final UseCase<bool, Type> _sesionUseCase;
 
   @override
   Stream<SplashState> mapEventToState(SplashEvent event) async* {
@@ -13,6 +16,10 @@ class SplashBLoC extends Bloc<SplashEvent, SplashState> {
   }
 
   Stream<SplashState> _loading(LoadingEvent event) async* {
-    // TODO: VALIDATE SESION
+    final sesion = await _sesionUseCase.call(Type);
+    if (sesion)
+      yield this.state.copywith(status: SplashStatus.login);
+    else
+      yield this.state.copywith(status: SplashStatus.logout);
   }
 }
