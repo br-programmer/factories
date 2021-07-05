@@ -1,12 +1,11 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:factories/core/domain/usecase/usecase.dart';
-import 'package:factories/features/splash/domain/usecase/sesion_usecase.dart';
 import 'package:factories/features/splash/presentation/bloc/splash_event.dart';
 import 'package:factories/features/splash/presentation/bloc/splash_state.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashBLoC extends Bloc<SplashEvent, SplashState> {
   SplashBLoC(this._sesionUseCase) : super(SplashState.initialState);
-  final UseCase<bool, Type> _sesionUseCase;
+  final UseCase<bool, dynamic> _sesionUseCase;
 
   @override
   Stream<SplashState> mapEventToState(SplashEvent event) async* {

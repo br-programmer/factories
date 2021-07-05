@@ -8,7 +8,7 @@ abstract class MyGlobalDependencies {
   static List<RepositoryProvider> buildDependencies() => <RepositoryProvider>[
         RepositoryProvider<PersistentStorageRepository>(
             create: (_) => PersistentStorageImpl()),
-        RepositoryProvider<UseCase<bool, Type>>(
+        RepositoryProvider<UseCase<bool, dynamic>>(
             create: (_) => SesionUseCase(_.read())),
       ];
 }
