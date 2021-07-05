@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:factories/core/domain/usecase/usecase.dart';
 import 'package:factories/core/ui/navigation/fade_page_route.dart';
+import 'package:factories/features/home/presentation/screen/home_screen.dart';
 import 'package:factories/features/login/presentation/screen/login_screen.dart';
 import 'package:factories/features/splash/presentation/bloc/bloc.dart';
 import 'package:factories/features/splash/presentation/widgets/body_splash.dart';
@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
         ),
       );
     } else if (state.status == SplashStatus.login) {
-      //TODO: GO TO HOME SCREEN
+      Navigator.push(context, FadePageRoute(screen: HomeScreen()));
     }
   }
 
@@ -27,8 +27,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SplashBLoC, SplashState>(
       listener: _listener,
-      bloc: SplashBLoC(context.read<UseCase<bool, dynamic>>())
-        ..add(LoadingEvent()),
+      bloc: SplashBLoC(context.read())..add(LoadingEvent()),
       child: Scaffold(body: const BodySplash()),
     );
   }

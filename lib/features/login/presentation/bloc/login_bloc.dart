@@ -1,11 +1,15 @@
+import 'package:flutter/widgets.dart' show BuildContext;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:factories/core/domain/usecase/usecase.dart';
 import 'package:factories/core/helpers/helpers.dart';
+import 'package:factories/features/login/domain/request/login_request.dart';
+import 'package:factories/features/login/domain/response/login_response.dart';
 import 'package:factories/features/login/presentation/bloc/login_event.dart';
 import 'package:factories/features/login/presentation/bloc/login_state.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginBLoC extends Bloc<LoginEvent, LoginState> {
-  LoginBLoC() : super(LoginState.initialState);
+  LoginBLoC(this._useCase) : super(LoginState.initialState);
+  final UseCase<LoginResponse, LoginRequest> _useCase;
 
   void onChangedUser(String user) {
     final userValid = Helpers.userValid(user);
@@ -29,8 +33,14 @@ class LoginBLoC extends Bloc<LoginEvent, LoginState> {
 
   Future<void> login() async {
     this.add(LogingStatusEvent(LoginStatus.loading));
-    await Future.delayed(const Duration(seconds: 5));
-    this.add(LogingStatusEvent(LoginStatus.error));
+    final response = await _useCase.call(
+      LoginRequest(user: state.user, password: state.password),
+    );
+    if (response.status) {
+      this.add(LogingStatusEvent(LoginStatus.ok));
+    } else {
+      this.add(LoginError(response.exception!.message, LoginStatus.error));
+    }
   }
 
   @override
