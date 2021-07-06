@@ -1,6 +1,6 @@
-import 'package:factories/core/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:factories/core/helpers/helpers.dart';
 import 'package:factories/core/data/models/factory.dart';
 import 'package:factories/core/ui/navigation/fade_page_route.dart';
 import 'package:factories/features/create_factory/presentation/screen/create_factory_screen.dart';
@@ -31,8 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
       );
       if (newFactory is Factory)
         HomeBLoC.of(context).creatingFactory(newFactory);
-    } else if (state.status == HomeStatus.detail) {
-      // TODO: GO TO DETAIL SCREEN
+      else
+        HomeBLoC.of(context).add(InitialStatus());
     } else if (state.status == HomeStatus.ok) {
       final snackBar = SnackBar(
         content: Text('Factory create', style: Helpers.loginHeaderInputStyle),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:factories/core/ui/navigation/fade_page_route.dart';
+import 'package:factories/features/detail/presentation/screen/detail_screen.dart';
 import 'package:factories/core/data/models/factory.dart';
 import 'package:factories/core/helpers/helpers.dart';
 import 'package:factories/features/home/presentation/bloc/bloc.dart';
@@ -30,13 +32,20 @@ class ItemFactory extends StatelessWidget {
   const ItemFactory({Key? key, required this.item}) : super(key: key);
   final Factory item;
 
+  Future<void> _goToDetail(BuildContext context) async {
+    await Navigator.push(
+      context,
+      FadePageRoute(screen: DetailScreen.init(item)),
+    );
+    HomeBLoC.of(context).add(InitialStatus());
+  }
+
   @override
   Widget build(BuildContext context) {
-    final homeBLoC = HomeBLoC.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: GestureDetector(
-        onTap: homeBLoC.detailFactory,
+        onTap: () => _goToDetail(context),
         child: AspectRatio(
           aspectRatio: 16 / 8,
           child: ClipRRect(

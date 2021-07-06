@@ -47,10 +47,6 @@ class HomeBLoC extends Bloc<HomeEvent, HomeState> {
     this.add(AddFactoryEvent(newFactory));
   }
 
-  void detailFactory() {
-    this.add(CreateFactoryEvent(HomeStatus.detail));
-  }
-
   @override
   Future<void> close() {
     _close();
@@ -65,12 +61,12 @@ class HomeBLoC extends Bloc<HomeEvent, HomeState> {
       yield* _showButtonEvent(event);
     } else if (event is CreateFactoryEvent) {
       yield* _createFactoryEvent(event);
-    } else if (event is DetailFactoryEvent) {
-      yield* _detailFactoryEvent(event);
     } else if (event is AddFactoryEvent) {
       yield* _addFactoryEvent(event);
     } else if (event is AddingFactoryEvent) {
       yield state.copyWith(loading: true);
+    } else if (event is InitialStatus) {
+      yield state.copyWith(status: HomeStatus.initial);
     }
   }
 
@@ -83,10 +79,6 @@ class HomeBLoC extends Bloc<HomeEvent, HomeState> {
   }
 
   Stream<HomeState> _createFactoryEvent(CreateFactoryEvent event) async* {
-    yield state.copyWith(status: event.status);
-  }
-
-  Stream<HomeState> _detailFactoryEvent(DetailFactoryEvent event) async* {
     yield state.copyWith(status: event.status);
   }
 

@@ -36,18 +36,6 @@ class CreateFactoryEvent implements HomeEvent {
   bool? get stringify => false;
 }
 
-class DetailFactoryEvent implements HomeEvent {
-  const DetailFactoryEvent(this.status, this.factor);
-  final HomeStatus status;
-  final Factory factor;
-
-  @override
-  List<Object?> get props => [status, factor];
-
-  @override
-  bool? get stringify => false;
-}
-
 class AddingFactoryEvent implements HomeEvent {
   @override
   List<Object?> get props => [];
@@ -62,6 +50,14 @@ class AddFactoryEvent implements HomeEvent {
 
   @override
   List<Object?> get props => [newFactory];
+
+  @override
+  bool? get stringify => false;
+}
+
+class InitialStatus implements HomeEvent {
+  @override
+  List<Object?> get props => [];
 
   @override
   bool? get stringify => false;

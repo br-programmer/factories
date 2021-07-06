@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
-import 'package:factories/features/create_factory/presentation/bloc/create_factory_state.dart';
 
 abstract class CreateFactoryEvent extends Equatable {}
 

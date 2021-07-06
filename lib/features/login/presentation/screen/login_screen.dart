@@ -22,7 +22,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   void _listener(BuildContext context, LoginState state) {
     if (state.status == LoginStatus.ok) {
-      Navigator.push(context, FadePageRoute(screen: HomeScreen.init()));
+      Navigator.pushReplacement(
+        context,
+        FadePageRoute(screen: HomeScreen.init()),
+      );
     } else if (state.status == LoginStatus.error) {
       final snackBar = SnackBar(
         content: Text(state.error, style: Helpers.loginHeaderInputStyle),
