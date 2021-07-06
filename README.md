@@ -1,14 +1,14 @@
 ## FACTORIES APP
 ### Flutter Technical Test For `Team International`
 
-## Rum App
+## Run APP
 
 ```sh
 $ flutter pub get
 $ flutter run
 ```
 
-## Build Apk
+## Build APK
 ```sh
 $ flutter pub get
 $ flutter build apk 
