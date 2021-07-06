@@ -16,17 +16,20 @@ class ButtonAddFactory extends StatelessWidget {
       builder: (_, state) => AnimatedPositioned(
         duration: const Duration(milliseconds: 300),
         bottom:
-            state.showButton ? kToolbarHeight / 2.5 : -kToolbarHeight * 1.25,
+            state.showButton ? kToolbarHeight / 2.5 : -kToolbarHeight * 1.75,
         curve: Curves.fastLinearToSlowEaseIn,
         left: 25,
         right: 25,
-        child: Align(
-          child: MyButton(
-            colorButton: AppColors.green,
-            opacity: .95,
-            textButton: 'Create a factory',
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            onPressed: homeBLoC.createFactory,
+        child: SafeArea(
+          top: false,
+          child: Align(
+            child: MyButton(
+              colorButton: AppColors.green,
+              opacity: .95,
+              textButton: 'Create a factory',
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              onPressed: homeBLoC.createFactory,
+            ),
           ),
         ),
       ),
