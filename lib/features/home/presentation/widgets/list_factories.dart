@@ -54,19 +54,31 @@ class ItemFactory extends StatelessWidget {
               fit: StackFit.expand,
               children: [
                 if (item.image != null)
-                  Image.asset(item.image!, fit: BoxFit.cover)
+                  Hero(
+                    tag: item.image!,
+                    child: Image.asset(item.image!, fit: BoxFit.cover),
+                  )
                 else
-                  Image.file(item.file!, fit: BoxFit.cover),
+                  Hero(
+                    tag: item.file!,
+                    child: Image.file(item.file!, fit: BoxFit.cover),
+                  ),
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Align(
                     alignment: Alignment.bottomLeft,
-                    child: Text(
-                      item.name,
-                      style:
-                          Helpers.loginInputStyle.copyWith(color: Colors.white),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    child: Hero(
+                      tag: item.name,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: Text(
+                          item.name,
+                          style: Helpers.createFactoryStyle
+                              .copyWith(color: Colors.white),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ),
                   ),
                 ),
