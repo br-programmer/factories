@@ -18,6 +18,8 @@ dependencies:
   equatable: ^2.0.3
   flutter_screenutil: ^5.0.0+2
   shared_preferences: ^2.0.6
+  image_picker: ^0.8.1+3
+  lottie: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -30,3 +32,4 @@ flutter:
   assets:
     - assets/factories/
     - assets/images/
+    - assets/animations/

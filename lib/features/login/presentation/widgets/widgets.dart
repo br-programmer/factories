@@ -1,4 +1,4 @@
-export 'package:factories/features/login/presentation/widgets/login_body.dart';
-export 'package:factories/features/login/presentation/widgets/login_layout.dart';
-export 'package:factories/features/login/presentation/widgets/login_loading.dart';
-export 'package:factories/features/login/presentation/widgets/form.dart';
+export 'login_body.dart';
+export 'login_layout.dart';
+export 'login_loading.dart';
+export 'form.dart';

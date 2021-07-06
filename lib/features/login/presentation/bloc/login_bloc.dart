@@ -34,7 +34,7 @@ class LoginBLoC extends Bloc<LoginEvent, LoginState> {
   Future<void> login() async {
     this.add(LogingStatusEvent(LoginStatus.loading));
     final response = await _useCase.call(
-      LoginRequest(user: state.user, password: state.password),
+      params: LoginRequest(user: state.user, password: state.password),
     );
     if (response.status) {
       this.add(LogingStatusEvent(LoginStatus.ok));

@@ -11,9 +11,9 @@ class LoginUseCase implements UseCase<LoginResponse, LoginRequest> {
   final PersistentStorageRepository _storageRepository;
 
   @override
-  Future<LoginResponse> call(LoginRequest params) async {
+  Future<LoginResponse> call({LoginRequest? params}) async {
     try {
-      final login = await _authRepository.login(params);
+      final login = await _authRepository.login(params!);
       if (login) await _storageRepository.savedSesion();
       return LoginResponse(status: login);
     } on AuthException catch (e) {

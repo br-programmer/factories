@@ -47,3 +47,22 @@ class DetailFactoryEvent implements HomeEvent {
   @override
   bool? get stringify => false;
 }
+
+class AddingFactoryEvent implements HomeEvent {
+  @override
+  List<Object?> get props => [];
+
+  @override
+  bool? get stringify => false;
+}
+
+class AddFactoryEvent implements HomeEvent {
+  const AddFactoryEvent(this.newFactory);
+  final Factory newFactory;
+
+  @override
+  List<Object?> get props => [newFactory];
+
+  @override
+  bool? get stringify => false;
+}

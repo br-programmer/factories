@@ -24,8 +24,17 @@ class Helpers {
   static TextStyle get homeStyle =>
       TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w700);
 
+  static TextStyle get createFactoryStyle => TextStyle(
+        fontSize: 50.sp,
+        fontWeight: FontWeight.w600,
+        color: Colors.black,
+      );
+
   static bool userValid(String value) => value.length > 4;
 
   static bool isValidPassword(String value) =>
       RegExp(r'^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,12}$').hasMatch(value);
+
+  static bool nameValid(String name) => name.length >= 10;
+  static bool descriptionValid(String description) => description.length >= 100;
 }

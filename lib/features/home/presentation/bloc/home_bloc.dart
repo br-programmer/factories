@@ -1,4 +1,5 @@
 import 'package:factories/core/data/models/factory.dart';
+import 'package:factories/core/domain/usecase/usecase.dart';
 import 'package:factories/features/home/presentation/bloc/home_event.dart';
 import 'package:factories/features/home/presentation/bloc/home_state.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,7 +7,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeBLoC extends Bloc<HomeEvent, HomeState> {
-  HomeBLoC() : super(HomeState.initialState);
+  HomeBLoC(this._useCase) : super(HomeState.initialState);
+
+  final UseCase<List<Factory>, dynamic> _useCase;
 
   late final ScrollController _controller;
   ScrollController get controller => _controller;
@@ -14,6 +17,11 @@ class HomeBLoC extends Bloc<HomeEvent, HomeState> {
   void init() {
     _controller = ScrollController();
     _controller.addListener(_listener);
+  }
+
+  Future<void> loadFactory() async {
+    final factories = await _useCase.call();
+    this.add(AddFactoriesEvent(factories));
   }
 
   void _listener() {
@@ -34,14 +42,12 @@ class HomeBLoC extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> creatingFactory(Factory newFactory) async {
-    this.add(CreateFactoryEvent(HomeStatus.creating));
-    // TODO: ADD LOGIN FOR ADD NEWFACTORY TO LIST<FACTORY>
-    await Future.delayed(const Duration(seconds: 2));
-    this.add(CreateFactoryEvent(HomeStatus.ok));
+    this.add(AddingFactoryEvent());
+    await Future.delayed(const Duration(seconds: 3));
+    this.add(AddFactoryEvent(newFactory));
   }
 
   void detailFactory() {
-    print('detail');
     this.add(CreateFactoryEvent(HomeStatus.detail));
   }
 
@@ -61,11 +67,15 @@ class HomeBLoC extends Bloc<HomeEvent, HomeState> {
       yield* _createFactoryEvent(event);
     } else if (event is DetailFactoryEvent) {
       yield* _detailFactoryEvent(event);
+    } else if (event is AddFactoryEvent) {
+      yield* _addFactoryEvent(event);
+    } else if (event is AddingFactoryEvent) {
+      yield state.copyWith(loading: true);
     }
   }
 
   Stream<HomeState> _addFactoriesEvent(AddFactoriesEvent event) async* {
-    yield state.copyWith(factories: event.factories);
+    yield state.copyWith(factories: event.factories, loading: false);
   }
 
   Stream<HomeState> _showButtonEvent(ShowButtonEvent event) async* {
@@ -78,6 +88,16 @@ class HomeBLoC extends Bloc<HomeEvent, HomeState> {
 
   Stream<HomeState> _detailFactoryEvent(DetailFactoryEvent event) async* {
     yield state.copyWith(status: event.status);
+  }
+
+  Stream<HomeState> _addFactoryEvent(AddFactoryEvent event) async* {
+    List<Factory> factories = List<Factory>.from(state.factories);
+    factories.add(event.newFactory);
+    yield state.copyWith(
+      loading: false,
+      status: HomeStatus.ok,
+      factories: factories,
+    );
   }
 
   static HomeBLoC of(BuildContext context) =>

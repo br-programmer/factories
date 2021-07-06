@@ -15,7 +15,7 @@ class SplashBLoC extends Bloc<SplashEvent, SplashState> {
   }
 
   Stream<SplashState> _loading(LoadingEvent event) async* {
-    final sesion = await _sesionUseCase.call(Type);
+    final sesion = await _sesionUseCase.call();
     if (sesion)
       yield this.state.copywith(status: SplashStatus.login);
     else
