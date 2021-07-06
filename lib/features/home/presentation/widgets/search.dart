@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:factories/features/home/presentation/bloc/bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:factories/core/helpers/helpers.dart';
 import 'package:factories/core/ui/app_colors.dart';
@@ -30,6 +31,7 @@ class Search extends StatelessWidget {
                   ),
                 ],
               ),
+              onChanged: HomeBLoC.of(context).searchChanged,
               placeholder: 'Search Factories',
               placeholderStyle:
                   Helpers.searchStyle.copyWith(color: AppColors.grey),

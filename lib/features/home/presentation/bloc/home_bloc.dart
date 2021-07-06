@@ -19,6 +19,10 @@ class HomeBLoC extends Bloc<HomeEvent, HomeState> {
     _controller.addListener(_listener);
   }
 
+  void searchChanged(String search) {
+    this.add(SearchEvent(search));
+  }
+
   Future<void> loadFactory() async {
     final factories = await _useCase.call();
     this.add(AddFactoriesEvent(factories));
@@ -64,9 +68,11 @@ class HomeBLoC extends Bloc<HomeEvent, HomeState> {
     } else if (event is AddFactoryEvent) {
       yield* _addFactoryEvent(event);
     } else if (event is AddingFactoryEvent) {
-      yield state.copyWith(loading: true);
+      yield* _addingState(event);
     } else if (event is InitialStatus) {
-      yield state.copyWith(status: HomeStatus.initial);
+      yield* _initialState(event);
+    } else if (event is SearchEvent) {
+      yield* _searchEvent(event);
     }
   }
 
@@ -90,6 +96,18 @@ class HomeBLoC extends Bloc<HomeEvent, HomeState> {
       status: HomeStatus.ok,
       factories: factories,
     );
+  }
+
+  Stream<HomeState> _addingState(AddingFactoryEvent event) async* {
+    yield state.copyWith(loading: true);
+  }
+
+  Stream<HomeState> _initialState(InitialStatus event) async* {
+    yield state.copyWith(status: HomeStatus.initial);
+  }
+
+  Stream<HomeState> _searchEvent(SearchEvent event) async* {
+    yield state.copyWith(search: event.search);
   }
 
   static HomeBLoC of(BuildContext context) =>

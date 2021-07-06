@@ -12,7 +12,14 @@ class HomeBody extends StatelessWidget {
       child: CustomScrollView(
         controller: HomeBLoC.of(context).controller,
         physics: BouncingScrollPhysics(),
-        slivers: [Header(), Search(), ListFactories()],
+        slivers: const [
+          Header(),
+          Search(),
+          ListFactories(),
+          SliverToBoxAdapter(
+            child: SizedBox(height: kBottomNavigationBarHeight),
+          ),
+        ],
       ),
     );
   }

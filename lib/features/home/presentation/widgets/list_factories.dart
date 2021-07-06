@@ -14,16 +14,22 @@ class ListFactories extends StatelessWidget {
     return BlocBuilder<HomeBLoC, HomeState>(
       buildWhen: (previous, current) =>
           previous.factories != current.factories ||
-          previous.loading != current.loading,
-      builder: (context, state) => SliverPadding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-        sliver: SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (_, index) => ItemFactory(item: state.factories[index]),
-            childCount: state.factories.length,
+          previous.search != current.search,
+      builder: (context, state) {
+        final newList = state.factories
+            .where((f) =>
+                f.name.toLowerCase().contains(state.search.toLowerCase()))
+            .toList();
+        return SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (_, index) => ItemFactory(item: newList[index]),
+              childCount: newList.length,
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

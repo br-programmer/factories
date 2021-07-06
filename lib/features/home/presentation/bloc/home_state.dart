@@ -9,18 +9,21 @@ class HomeState extends Equatable {
     required this.status,
     required this.factories,
     required this.loading,
+    required this.search,
   });
 
   final bool showButton;
   final HomeStatus status;
   final List<Factory> factories;
   final bool loading;
+  final String search;
 
   static HomeState get initialState => const HomeState(
         showButton: true,
         status: HomeStatus.initial,
         factories: <Factory>[],
         loading: true,
+        search: '',
       );
 
   HomeState copyWith({
@@ -28,14 +31,16 @@ class HomeState extends Equatable {
     HomeStatus? status,
     List<Factory>? factories,
     bool? loading,
+    String? search,
   }) =>
       HomeState(
         showButton: showButton ?? this.showButton,
         status: status ?? this.status,
         factories: factories ?? this.factories,
         loading: loading ?? this.loading,
+        search: search ?? this.search,
       );
 
   @override
-  List<Object?> get props => [showButton, status, factories, loading];
+  List<Object?> get props => [showButton, status, factories, loading, search];
 }

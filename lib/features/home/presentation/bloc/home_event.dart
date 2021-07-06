@@ -62,3 +62,14 @@ class InitialStatus implements HomeEvent {
   @override
   bool? get stringify => false;
 }
+
+class SearchEvent implements HomeEvent {
+  const SearchEvent(this.search);
+  final String search;
+
+  @override
+  List<Object?> get props => [search];
+
+  @override
+  bool? get stringify => false;
+}
