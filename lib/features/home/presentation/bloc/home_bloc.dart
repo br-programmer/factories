@@ -7,12 +7,18 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeBLoC extends Bloc<HomeEvent, HomeState> {
-  HomeBLoC(this._useCase) : super(HomeState.initialState);
+  HomeBLoC(this._factoriesUseCase, this._logoutUseCase)
+      : super(HomeState.initialState);
 
-  final UseCase<List<Factory>, dynamic> _useCase;
+  final UseCase<List<Factory>, dynamic> _factoriesUseCase;
+  final UseCase<void, dynamic> _logoutUseCase;
 
   late final ScrollController _controller;
   ScrollController get controller => _controller;
+
+  Future<void> logout() async {
+    await _logoutUseCase.call();
+  }
 
   void init() {
     _controller = ScrollController();
@@ -24,7 +30,7 @@ class HomeBLoC extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> loadFactory() async {
-    final factories = await _useCase.call();
+    final factories = await _factoriesUseCase.call();
     this.add(AddFactoriesEvent(factories));
   }
 

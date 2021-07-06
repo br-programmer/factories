@@ -1,3 +1,4 @@
+import 'package:factories/features/home/domain/usecases/logout_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:factories/core/domain/repositories/image_picker_repository.dart';
 import 'package:factories/core/data/repositories/image_picker_imp.dart';
@@ -30,5 +31,7 @@ abstract class MyGlobalDependencies {
             create: (_) => FactoriesUseCase(_.read())),
         RepositoryProvider<ImagePickerRepository>(
             create: (_) => ImagePickerImpl()),
+        RepositoryProvider<UseCase<void, dynamic>>(
+            create: (_) => LogoutUseCase(_.read())),
       ];
 }

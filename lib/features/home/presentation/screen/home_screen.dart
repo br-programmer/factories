@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen._({Key? key}) : super(key: key);
 
   static Widget init() => BlocProvider(
-        create: (_) => HomeBLoC(_.read())
+        create: (_) => HomeBLoC(_.read(), _.read())
           ..init()
           ..loadFactory(),
         child: const HomeScreen._(),
